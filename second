@@ -1,0 +1,18 @@
+
+filename = "data/wxobs20170821.txt"
+# datafile = open(filename, 'r')
+# 
+# data = datafile.read()
+# 
+# datafile.close()
+# replace with 2 lines
+# closes automatically
+with open(filename, 'r') as datafile:
+    data = datafile.read()
+
+
+# Debug
+# # print(data)
+# print(type(data))
+# print("data")
+
