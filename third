@@ -1,0 +1,32 @@
+# initialize data variable
+# a dicionary, will populate later
+# init each list to empty
+data = {'date':[], 'time':[], 'tempout':[]}
+# pull out time after it's been populated:
+# time = data['time']
+
+filename = "data/wxobs20170821.txt"
+
+with open(filename, 'r') as datafile:
+# orig    data = datafile.read()
+    # read the first 3 lines (header)
+    #   v a place holder variable (instead of i, j ...) indicates we'll never use the variable
+    for _ in range(3):
+        # could have said 'for i in [0,3]'
+        # print(_)
+        datafile.readline()
+
+    # Read and parse the rest of the file
+    # each line is a string
+    for line in datafile:
+        # split along white space
+        split_line = line.split()
+        # add datum to the list 'data'
+        data['date'].append(split_line[0])
+        data['time'].append(split_line[1])
+        data['tempout'].append(split_line[2])
+
+
+# Debug
+print(data['time'])
+
