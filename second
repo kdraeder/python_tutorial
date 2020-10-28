@@ -1,3 +1,6 @@
+# initialize data variable
+# a list, will populate later
+data = []
 
 filename = "data/wxobs20170821.txt"
 # datafile = open(filename, 'r')
@@ -8,8 +11,71 @@ filename = "data/wxobs20170821.txt"
 # replace with 2 lines
 # closes automatically
 with open(filename, 'r') as datafile:
-    data = datafile.read()
+# orig    data = datafile.read()
+    # read the first 3 lines (header)
+    #   v a place holder variable (instead of i, j ...) indicates we'll never use the variable
+    for _ in range(3):
+        # could have said 'for i in [0,3]'
+        # print(_)
+        datafile.readline()
 
+    # Read and parse the rest of the file
+    # each line is a string
+    for line in datafile:
+        datum = line.split()
+        # string.split method; split by a chosen character
+        # ('/t'), 
+        # add datum to the list 'data'
+        data.append(datum)
+
+# debug
+# for datum in data:
+#     print(datum)
+    # each of the [ ] in output is a list,
+    # , separates values
+# Methods of list indexing
+# pull out first index
+# print(data[0])
+# # pull out 10th element
+# print(data[9])
+# # last element   (2nd to last is -2, ...)
+# print(data[-1])
+
+# slice indexing; first 10 rows of data
+# EXCLUDES last integer!
+#     print(data[0:10])
+# for datum in data[0:10]:
+#     print(datum)
+
+# Does the same thing; default start with the first
+# for datum in data[:10]:
+#     print(datum)
+
+# step (stride)
+# for datum in data[0:10:2]:
+#     print(datum)
+
+# Nested
+# fifth element from row 9
+# print(data[8][4])
+# # first character of the string
+# print(data[8][4][0])
+
+# Print first 5 from row 9
+print(data[8][0:5])
+
+# Print every 2nd
+print(data[8][::2])
+
+# common mistake that doesn't work
+# fifth element from 5-8 rows
+# print(data[5:8][4])
+# no 4th element in the *new* list we've made (3 elements long)
+print(data[5:8][0])
+print(data[5])
+
+
+# Split long string into a list
 
 # Debug
 # # print(data)
