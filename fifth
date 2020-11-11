@@ -2,11 +2,11 @@
 # add a new key with making changes throughout file
 
 # Column names and column indices to read   index 7
-columns = {'date':0, 'time':1, 'tempout':2, 'windspeed':7}
+columns = {'date':0, 'time':1, 'tempout':2, 'windspeed':7, 'windchill':12}
 
 # data types for each column
 # float is a function pointer here, not a function
-type = {'tempout': float, 'windspeed':float}
+type = {'tempout': float, 'windspeed':float, 'windchill':float}
 
 # initialize data variable
 # a dicionary, will populate later
@@ -69,7 +69,12 @@ windchill = []
 for temp, windspeed in zip( data['tempout'], data['windspeed']):
     windchill.append(compute_windchill(temp, windspeed))
 
-print(windchill)
+# print(windchill)
+
+# compare with precomputed value
+for wc_data, wc_comp in zip(data['windchill'], windchill):
+    # formatted print  5 digits after decimal point
+    print(f'{wc_data:.5f} {wc_comp:.5f} {wc_data - wc_comp:.5f}')
 
 # Some kind debugging or what it would try to do
 # d.get(key, str)
