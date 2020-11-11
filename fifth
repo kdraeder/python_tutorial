@@ -27,6 +27,7 @@ with open(filename, 'r') as datafile:
         # could have said 'for i in [0,3]'
         # print(_)
         datafile.readline()
+#? What was header read that I missed?
 
     # Read and parse the rest of the file
     # each line is a string
@@ -41,11 +42,40 @@ with open(filename, 'r') as datafile:
             value = t(split_line[i])
             data[column].append(value)
 
+# Calc wind chill
+# Use verbs for function names.
+def compute_windchill(t, v):
+    # constants
+    a = 35.74
+    b = 0.6215
+    c = 35.75
+    d = 0.4275
+
+    # new variable
+    v16 = v **0.16
+
+    wci = a + (b*t) - (c * v16) + (d * t * v16)
+    return wci
+
+# DEBUG
+# before calling function; zip  compare lists(?)
+# 2 iterators
+for i, j in zip( [1,2], [3,4,5] ):
+    print(i, j)
+
+# Running the function 
+# initialize
+windchill = []
+for temp, windspeed in zip( data['tempout'], data['windspeed']):
+    windchill.append(compute_windchill(temp, windspeed))
+
+print(windchill)
+
 # Some kind debugging or what it would try to do
 # d.get(key, str)
 # d['key'] --- > str
 
-print(data['tempout'])
+# print(data['tempout'])
 
 # Debug
 # print(data['tempout'])
