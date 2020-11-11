@@ -1,0 +1,53 @@
+# refactor to make more flexible, less hard to change
+# add a new key with making changes throughout file
+
+# Column names and column indices to read   index 7
+columns = {'date':0, 'time':1, 'tempout':2, 'windspeed':7}
+
+# data types for each column
+# float is a function pointer here, not a function
+type = {'tempout': float, 'windspeed':float}
+
+# initialize data variable
+# a dicionary, will populate later
+# init each list to empty
+data = {}
+for column in columns:
+    # empty list
+    data[column] = []
+
+
+filename = "data/wxobs20170821.txt"
+
+with open(filename, 'r') as datafile:
+# orig    data = datafile.read()
+    # read the first 3 lines (header)
+    #   v a place holder variable (instead of i, j ...) indicates we'll never use the variable
+    for _ in range(3):
+        # could have said 'for i in [0,3]'
+        # print(_)
+        datafile.readline()
+
+    # Read and parse the rest of the file
+    # each line is a string
+    for line in datafile:
+        # split along white space
+        split_line = line.split()
+        # add datum to the list 'data'
+        for column in columns:
+            i = columns[column]
+            # there's only one of these
+            t = type.get(column, str)
+            value = t(split_line[i])
+            data[column].append(value)
+
+# Some kind debugging or what it would try to do
+# d.get(key, str)
+# d['key'] --- > str
+
+print(data['tempout'])
+
+# Debug
+# print(data['tempout'])
+
+# % git log --oneline
