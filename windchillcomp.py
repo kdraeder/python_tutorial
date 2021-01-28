@@ -1,3 +1,6 @@
+# Make it use the new module:
+from readdata import read_data
+
 # refactor to make more flexible, less hard to change
 # add a new key with making changes throughout file
 
@@ -6,41 +9,10 @@ columns = {'date':0, 'time':1, 'tempout':2, 'windspeed':7, 'windchill':12}
 
 # data types for each column
 # float is a function pointer here, not a function
-type = {'tempout': float, 'windspeed':float, 'windchill':float}
+types = {'tempout': float, 'windspeed':float, 'windchill':float}
 
-# initialize data variable
-# a dicionary, will populate later
-# init each list to empty
-data = {}
-for column in columns:
-    # empty list
-    data[column] = []
-
-
-filename = "data/wxobs20170821.txt"
-
-with open(filename, 'r') as datafile:
-# orig    data = datafile.read()
-    # read the first 3 lines (header)
-    #   v a place holder variable (instead of i, j ...) indicates we'll never use the variable
-    for _ in range(3):
-        # could have said 'for i in [0,3]'
-        # print(_)
-        datafile.readline()
-#? What was header read that I missed?
-
-    # Read and parse the rest of the file
-    # each line is a string
-    for line in datafile:
-        # split along white space
-        split_line = line.split()
-        # add datum to the list 'data'
-        for column in columns:
-            i = columns[column]
-            # there's only one of these
-            t = type.get(column, str)
-            value = t(split_line[i])
-            data[column].append(value)
+# Read data from file
+data = read_data(columns, types=types)
 
 # Calc wind chill
 # Use verbs for function names.
