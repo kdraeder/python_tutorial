@@ -1,28 +1,31 @@
-# >>> Replace the reads with using the new function.
+# Make it use the new module:
+from computation import compute_heatindex
+# from readdata import read_data
+
 
 # Calc heat index
 # Use verbs for function names.
 # This needs to be defined before it's referenced.
 # Could be defined in a package that's imported.
-def compute_heatindex(t, hum):
-    # constants
-    a = -42
-    b = 2
-    c = 10
-    d = 0.22
-    e = 0.0068
-    f = 0.0048
-    g = 0.0012
-    h = 0.00085
-    i = 0.000002
-
-    # new variable
-    rh = hum / 100
-    hi = (a + (b * t) + (c * rh) + (d * t * rh) + (c * t ** 2) + 
-          (f * rh ** 2) + (g * rh * t ** 2) + (h * t * rh ** 2) +
-          (i * t ** 2 * rh ** 2))
-    return hi
-
+# def compute_heatindex(t, hum):
+#     # constants
+#     a = -42
+#     b = 2
+#     c = 10
+#     d = 0.22
+#     e = 0.0068
+#     f = 0.0048
+#     g = 0.0012
+#     h = 0.00085
+#     i = 0.000002
+# 
+#     # new variable
+#     rh = hum / 100
+#     hi = (a + (b * t) + (c * rh) + (d * t * rh) + (c * t ** 2) + 
+#           (f * rh ** 2) + (g * rh * t ** 2) + (h * t * rh ** 2) +
+#           (i * t ** 2 * rh ** 2))
+#     return hi
+# 
 # refactor to make more flexible, less hard to change
 # add a new key with making changes throughout file
 
