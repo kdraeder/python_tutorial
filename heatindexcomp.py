@@ -1,15 +1,40 @@
+# >>> Replace the reads with using the new function.
+
+# Calc heat index
+# Use verbs for function names.
+# This needs to be defined before it's referenced.
+# Could be defined in a package that's imported.
+def compute_heatindex(t, hum):
+    # constants
+    a = -42
+    b = 2
+    c = 10
+    d = 0.22
+    e = 0.0068
+    f = 0.0048
+    g = 0.0012
+    h = 0.00085
+    i = 0.000002
+
+    # new variable
+    rh = hum / 100
+    hi = (a + (b * t) + (c * rh) + (d * t * rh) + (c * t ** 2) + 
+          (f * rh ** 2) + (g * rh * t ** 2) + (h * t * rh ** 2) +
+          (i * t ** 2 * rh ** 2))
+    return hi
+
 # refactor to make more flexible, less hard to change
 # add a new key with making changes throughout file
 
 # Column names and column indices to read   index 7
-columns = {'date':0, 'time':1, 'tempout':2, 'windspeed':7, 'windchill':12}
+columns = {'date':0, 'time':1, 'tempout':2, 'humout':5, 'heatindex':13}
 
 # data types for each column
 # float is a function pointer here, not a function
-type = {'tempout': float, 'windspeed':float, 'windchill':float}
+type = {'tempout':float, 'humout':float, 'heatindex':float}
 
 # initialize data variable
-# a dicionary, will populate later
+# a dictionary, will populate later
 # init each list to empty
 data = {}
 for column in columns:
@@ -42,20 +67,6 @@ with open(filename, 'r') as datafile:
             value = t(split_line[i])
             data[column].append(value)
 
-# Calc wind chill
-# Use verbs for function names.
-def compute_windchill(t, v):
-    # constants
-    a = 35.74
-    b = 0.6215
-    c = 35.75
-    d = 0.4275
-
-    # new variable
-    v16 = v **0.16
-
-    wci = a + (b*t) - (c * v16) + (d * t * v16)
-    return wci
 
 # DEBUG
 # before calling function; zip  compare lists(?)
@@ -65,11 +76,9 @@ for i, j in zip( [1,2], [3,4,5] ):
 
 # Running the function 
 # initialize
-windchill = []
-for temp, windspeed in zip( data['tempout'], data['windspeed']):
-    windchill.append(compute_windchill(temp, windspeed))
-
-# print(windchill)
+heatindex = []
+for temp, hum in zip( data['tempout'], data['humout']):
+    heatindex.append(compute_heatindex(temp, hum))
 
 # compare with precomputed value
 # for wc_data, wc_comp in zip(data['windchill'], windchill):
@@ -77,15 +86,15 @@ for temp, windspeed in zip( data['tempout'], data['windspeed']):
     # print(f'{wc_data:.5f} {wc_comp:.5f} {wc_data - wc_comp:.5f}')
 
 # better output
-zip_data = zip(data['date'], data['time'], data['windchill'], windchill)
+zip_data = zip(data['date'], data['time'], data['heatindex'], heatindex)
 print('               ORIGINAL  COMPUTED')
-print(' DATE    TIME  WINDCHILL WINDCHILL DIFFERENCE')
+print(' DATE    TIME  HEATINDEX HEATINDEX DIFFERENCE')
 print('------- ------ --------- --------- ----------')
-for date, time, wc_orig, wc_comp in zip_data:
-    wc_diff = wc_orig - wc_comp
+for date, time, hi_orig, hi_comp in zip_data:
+    hi_diff = hi_orig - hi_comp
     #               time object 6 chars, right justified
     #                                 9 char, 6 after dec point
-    print(f'{data} {time:>6} {wc_orig:9.6f} {wc_comp:9.6f} {wc_diff:10.6f}')
+    print(f'{data} {time:>6} {hi_orig:9.6f} {hi_comp:9.6f} {hi_diff:10.6f}')
 
     
     
@@ -100,3 +109,4 @@ for date, time, wc_orig, wc_comp in zip_data:
 # print(data['tempout'])
 
 # % git log --oneline
+
