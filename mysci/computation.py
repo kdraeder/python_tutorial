@@ -1,3 +1,29 @@
+
+import math
+
+
+def compute_dewpoint(t, h):
+    """
+    Compute the dew point temperature given T and humidity
+
+    Parameters:
+        t: Temp (F; conversion will be done))
+        h: relative humidity (%)
+    """
+
+    tempC = (t - 32) * 5 / 9 # Convert Temp from F to C
+    rh = h / 100
+
+    b = 18.678
+    c = 257.14  # deg C (?)
+
+    gamma = math.log(rh) + b * tempC) / (c + tempC)
+    tdp = c * gamma / (b - gamma)
+
+    # Back to F
+    tdt_F = 9 / 5 * tdp + 32   
+    return tdp_F
+
 def compute_windchill(t, v):
     """
     Compute the wind chill factor, given the T and wind speed
