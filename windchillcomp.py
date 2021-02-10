@@ -24,9 +24,13 @@ data = read_data(columns, types=types)
 
 # Running the function 
 # initialize
-windchill = []
-for temp, windspeed in zip( data['tempout'], data['windspeed']):
-    windchill.append(compute_windchill(temp, windspeed))
+# windchill = []
+# for temp, windspeed in zip( data['tempout'], data['windspeed']):
+#     windchill.append(compute_windchill(temp, windspeed))
+# Can do that in 1 line; a "comprehension"
+# More efficient as well as compact
+# Less indenting
+windchill = [compute_windchill(t,w) for t, w in zip(data['tempout'], data['windspeed'])]
 
 # print(windchill)
 

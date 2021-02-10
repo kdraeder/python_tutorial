@@ -18,9 +18,11 @@ data = read_data(columns, types=types)
 
 # Running the function 
 # initialize
-heatindex = []
-for temp, hum in zip( data['tempout'], data['humout']):
-    heatindex.append(compute_heatindex(temp, hum))
+# heatindex = []
+# for temp, hum in zip( data['tempout'], data['humout']):
+#     heatindex.append(compute_heatindex(temp, hum))
+# A comprehension
+heatindex = [compute_heatindex(t, h)) for t, h in zip( data['tempout'], data['humout'])]
 
 # compare with precomputed value
 # for wc_data, wc_comp in zip(data['windchill'], windchill):
