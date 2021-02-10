@@ -19,8 +19,8 @@ data = read_data(columns, types=types)
 # DEBUG
 # before calling function; zip  compare lists(?)
 # 2 iterators
-for i, j in zip( [1,2], [3,4,5] ):
-    print(i, j)
+# for i, j in zip( [1,2], [3,4,5] ):
+#     print(i, j)
 
 # Running the function 
 # initialize
@@ -38,20 +38,6 @@ for temp, windspeed in zip( data['tempout'], data['windspeed']):
 # output from a function
 print_comparison('WINDCHILL', data['date'], data['time'], data['windchill'], windchill)
 
-# better output
-# Now in a function in printing.py
-# zip_data = zip(data['date'], data['time'], data['windchill'], windchill)
-# print('               ORIGINAL  COMPUTED')
-# print(' DATE    TIME  WINDCHILL WINDCHILL DIFFERENCE')
-# print('------- ------ --------- --------- ----------')
-# for date, time, wc_orig, wc_comp in zip_data:
-#     wc_diff = wc_orig - wc_comp
-#     #               time object 6 chars, right justified
-#     #                                 9 char, 6 after dec point
-#     print(f'{data} {time:>6} {wc_orig:9.6f} {wc_comp:9.6f} {wc_diff:10.6f}')
-# 
-#     
-    
 
 # Some kind debugging or what it would try to do
 # d.get(key, str)
