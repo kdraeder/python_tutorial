@@ -1,11 +1,12 @@
-def read_data(columns, types{}, filename="data/wxobs20170821.txt"):
+# def read_data(columns, types{}, filename="data/wxobs20170821.txt"):
+def read_data(columns, types, filename="data/wxobs20170821.txt"):
     #                             ^ keyword argument; don't have to enter it
     # Docstring:
     """
     Read the data from CU Boulder weather station file
     Parameters:
         columns: a dictionary of column names mapping to column indices
-        types:   dict of col nmames mapping to the types to whic to convert each col of data
+        types:   dict of col names mapping to the types to which to convert each col of data
         filename: a string path pointing to the CU Boulder Weather Station data file
     """
 

@@ -1,0 +1,281 @@
+
+----------------------------
+Anaconda set up.
+
+already spent 3 hours trying to set up anaconda.
+
+7:15  logged in to cloud to file a report about my experience
+Chose Help: report a bug
+   that said read the User Guide
+?     is there a search?
+   UG > Getting Started
+?     Do I want 'anaconda client'?  instead of cloud?
+         I installed it (see Installed)
+      > Use the Anaconda Client CLI
+        Finding my Client login credentials
+           Your credentials for Client are those you used to create an account on Cloud.
+           To get help:
+               Go to https://anaconda.org.
+               Select the Sign In tab.
+               Click either I forgot my password or I forgot my username.
+
+           Logging into Client
+              After you have downloaded and configured Client, 
+              open a Terminal window or an Anaconda Prompt and run:
+              $ anaconda login
+
+           Displaying a list of Client commands
+              From a Terminal window or an Anaconda Prompt, run:
+              $ anaconda --help
+           Finding out more about a Client command
+              $ anaconda COMMANDNAME -h
+    FAQs  Nothing relevant to download bugs
+
+Back to Help: report a bug
+    go to the appropriate repo link below. 
+    Search for my issue in existing issues
+    Downloading or installing or using Anaconda Distribution. 
+       Searched for 'tcsh'; 1 issue: Error Installing Spyder4 Using Miniconda #11512 
+          $ conda init <SHELL_NAME>
+          No answers or suggestions.
+       Searched for condabin; 
+          anaconda3/condabin was added to PATH instead of anaconda3/bin (Mac catalina using a bash)
+             Related, but not ideally relevant (no tcsh, PATH was modified, but incorrectly
+                and path added was the one that should have been added to mine.
+          Conda 4.8.3 / os.environ['PATH'] not correct on mac os 10.12.6 #11739
+             Both of those paths are added, but the rest of the path is not the normal one.
+          Anaconda installs but is unable to be launched #11537
+             Windows
+       Searched for PATH
+
+
+--------------------------------
+Installed
+ % conda install anaconda-client
+Collecting package metadata (current_repodata.json): done
+Solving environment: done
+## Package Plan ##
+  environment location: /opt/anaconda3
+  added / updated specs:
+    - anaconda-client
+The following packages will be downloaded:
+    package                    |            build
+    ---------------------------|-----------------
+    conda-4.8.5                |           py38_0         2.8 MB
+    ------------------------------------------------------------
+
+The following packages will be UPDATED:
+  conda  4.8.3-py38_0 --> 4.8.5-py38_0
+
+---------------
+Even if I were using bash, is seems that ~/.bash_profile does not add the same path
+that the installer does.  It adds anaconda/bin instead of condabin.
+
+------------------------------
+Mike Levy responded on 2020-10-13
+But I should follow Kent's instructions about minconda3 first or instead.
+See below.
+
+Michael Levy
+	
+1:51 PM (9 minutes ago)
+	
+to me, Julia, analytics
+Hi Kevin,
+
+Nan was having some issues getting conda working with tcsh 
+but she and I spent 15 or 20 minutes on zoom (with her sharing her screen) 
+and were able to eventually figure it out. 
+I would recommend the following (some of which you may have already done, 
+based on your earlier emails):
+
+1. get rid of all previous anaconda and miniconda installations 
+   (either with "rm -rf" or, if you want to hold on to them, 
+   just move them to a directory that you know is not part of the path)
+2. git rid of any conda related blocks of code in .bashrc or .tcshrc
+3. from bash, run the miniconda installer: 
+   https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html 
+   (note where it ends up installing, I think the default is ~/miniconda3/)
+4. in tcsh, verify that "conda" is in the path. 
+   If it isn't, you may need to manually add the directory you noted in (2) to PATH
+5. once conda is in your path in tcsh, run "conda --version". 
+   I believe 4.8.5 is the most recent but as long as it's 4.7 or 4.8 you should be good for the next step
+6. Try running "conda activate"; if it works, your prompt should now include "(base)" 
+   to signify you are in a conda environment. 
+   That's awesome, you can jump to step 10! 
+   But I suspect it will ask you to run conda init, in which case
+7. Run "conda init tcsh", which should modify your .tcshrc file
+   -- this step is why I recommend making sure your old installations are all out of your PATH in (1) 
+   and cleaning up your rc files in (2): 
+   I think Nan was running this command with an old version of conda that didn't support tcsh 
+   despite having a fresh install and that was adding bad logic to her .tcshrc file
+8. Open a new terminal, or source .tcshrc
+9. Try running "conda activate" again. 
+   If it fails this time, I think a virtual meeting will be necessary to suss out the problem... 
+   but this worked for Nan so I've got my fingers crossed :)
+10. If the output of "conda --version" was older than 4.8.5, 
+    I'd recommend running "conda update -n base conda" to get the latest version.
+11. Also, you might want to add "conda activate" to your .tcshrc file so that your new terminals load with conda already activated
+-----------------------------------------------
+Uninstall anaconda.
+   >>> I can't; permission denied for both.
+       drwxr-xr-x   2 raeder  wheel   64 Oct 13 15:05 anaconda3
+       I also trashed the icon in Applications, and can't move it back.
+       I had to use 
+       $ su raederadmin
+       $ sudo rm -rf anaconda3
+   >>> I moved .bash_profile to .bash_profile_anaconda3_bin
+Follow Julia Kent's instructions 2020-10-13
+
+In https://docs.conda.io/en/latest/miniconda.html
+I have to choose a MacOSX installer.
+Python 3.8 has 2 choices; bash and pkg.
+?  How am I supposed to choose.
+   Kent said we'll be using bash, so I'll try that.
+It opened XCode (after XCode asked to update)
+    because that was the default choice in the "you have chosen to open" window.
+Then XCode disappeared while I was writing an email to Kent.
+I tried it again; this yielded a window with a bash script in it, file named
+Downloads/Miniconda3-latest-MacOSX-x86_64-1.sh
+
+It doesn't have executable permission.
+The online instructions say to verify it before installing it:
+bash-3.2$ shasum -a 256 !$                  
+shasum -a 256 Miniconda3-latest-MacOSX-x86_64.sh
+9b9a353fadab6aa82ac0337c367c23ef842f97868dcbb2ff25ec3aa463afc871  Miniconda3-latest-MacOSX-x86_64.sh
+
+So what?
+I'm supposed to be able to verify it at https://conda.io/en/latest/miniconda_hashes.html
+but that file name is not in that table.
+
+Ignoring the verification and going to the Next window; it's all Windows.
+Try the Next: That's macOS
+   The first thing there is Download the Installer.
+       but I already did.
+
+Forge ahead
+% bash Miniconda3-latest-MacOSX-x86_64.sh
+
+Miniconda3 will now be installed into this location:
+/Users/raeder/miniconda3
+No, it put it in ~/Downloads/quit, because I apparently tried to quit
+conda before following the instructions to close the window,
+but it took that 'command' as a directory name.
+I'm having so much fun.
+This time I read the prompt and let it build in ~/miniconda3.
+
+I closed the window.
+A new window doesn't have conda added to the PATH.
+Even when I start a bash shell.
+I need to `source ~/.bash_profile`.
+? Can I put that in a .login file?
+
+
+----------------------------
+2020-10-14
+
+Open source; important to manage my packages
+   Frequently (in the course of year)
+   I can preserve packages in the state use during development
+
+Today; only python, to minimize package confusion
+basic conda and git
+
+later; add 1 by 1
+
+create conda env.
+% conda create --name python_env python
+to  enter packages I want instllld
+
+Activate the env.
+% conda activate python_env
+Note prompt; says I'm in that env.
+
+% git init .
+
+Creaete a data folder
+% mkdir data; cd data
+
+Download sample data file
+% curl -kO https://sundowner.colorado.edu/weather/atoc8/wxobs20170821.txt
+% git add wxobs20170821.txt 
+% git status
+
+Create a script
+% cd ..
+% vi mysci.py
+% python !$
+hello
+
+% vi mysci.py
+don't forget to close the file (memory management)
+
+readline; good for seeing the header
+
+% vi second 
+uses condensed way of reading the file.
+
+data types
+   float, integer, ...
+can print the data type
+print(type(data))
+% python second
+<class 'str'>
+We'll need to parse the data
+into a data dictionary
+
+Put it into git
+% git add mysci.py second
+% git log
+% git log --oneline
+90f9038 (HEAD -> master) mysci.py not working yet. second is good
+34ac15d first data file: https://sundowner.colorado.edu/weather/atoc8/wxobs20170821.txt
+---------------------------------------------------
+2020-10-14
+Creating a dictionary
+
+https://ncar.github.io/python-tutorial/tutorials/yourfirst.html#creating-a-data-dictionary
+docs.python.org/3/
+stackoverflow.com
+
+
+
+------------------------------------
+2020-11-11
+
+fix the 'fifth' script, which was renamed to windchillcomp.py
+
+She added this to her github,
+I missed all the instructions.
+>>> See them in the recording.
+
+--------------------------------------
+2020-12-1
+0[1276] ~/Python/Tutorial % git add windchillcomp.py
+0[1277] ~/Python/Tutorial % git commit -m "Output formatting comparison data"
+[master c41c53f] Output formatting comparison data
+ 1 file changed, 16 insertions(+), 2 deletions(-)
+ rename fifth => windchillcomp.py (76%)
+0[1278] ~/Python/Tutorial % git remote add origin git@github.com:kdraeder/python_tutorial.git
+0[1279] ~/Python/Tutorial % git branch -M main
+0[1280] ~/Python/Tutorial % git push -u origin main
+Enumerating objects: 32, done.
+Counting objects: 100% (32/32), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (30/30), done.
+Writing objects: 100% (32/32), 25.20 KiB | 2.10 MiB/s, done.
+Total 32 (delta 15), reused 0 (delta 0)
+remote: Resolving deltas: 100% (15/15), done.
+To github.com:kdraeder/python_tutorial.git
+ * [new branch]      main -> main
+Branch 'main' set up to track remote branch 'main' from 'origin'.
+
+-------------
+2021-1-27; packages
+x>> __pycache__; a directory py makes when we run a program that uses a module.
+Don't archive it
+$ touch .gitignore
+In it, add
+__pycache__/
+
+>>> Replace printing block in the functions with a new module.

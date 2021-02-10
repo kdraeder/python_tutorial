@@ -6,12 +6,12 @@ filename = "data/wxobs20170821.txt"
 datafile = open(filename, 'r')
 
 # Read first line
-print(datafile, readline())
+print(datafile.readline())
 # Read second line
-print(datafile, readline())
+print(datafile.readline())
 # Read third line
-print(datafile, readline())
+print(datafile.readline())
 # Read fourth line
-print(datafile, readline())
+print(datafile.readline())
 
-dataline.close()
+datafile.close()

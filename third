@@ -33,3 +33,4 @@ with open(filename, 'r') as datafile:
 # Debug
 # print(data['tempout'])
 
+# % git log --oneline
