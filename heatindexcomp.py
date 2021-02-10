@@ -1,7 +1,7 @@
 # Make it use the new module:
-from computation import compute_heatindex
-from printing import print_comparison
-from readdata import read_data
+from mysci.computation import compute_heatindex
+from mysci.printing import print_comparison
+from mysci.readdata import read_data
 
 
 # refactor to make more flexible, less hard to change

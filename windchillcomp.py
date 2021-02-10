@@ -1,7 +1,7 @@
 # Make it use the new module:
-from readdata import read_data
-from printing import print_comparison
-from computation import compute_windchill
+from mysci.readdata import read_data
+from mysci.printing import print_comparison
+from mysci.computation import compute_windchill
 
 # refactor to make more flexible, less hard to change
 # add a new key with making changes throughout file
